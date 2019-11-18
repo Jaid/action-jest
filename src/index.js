@@ -1,7 +1,7 @@
-import execa from "execa"
+import exec from "@actions/exec"
 
 async function main() {
-  await execa("npx jest --help")
+  await exec.exec("npx jest --help")
 }
 
 main()
