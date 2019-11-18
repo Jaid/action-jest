@@ -1,7 +1,7 @@
-import jest from "jest"
+import execa from "execa"
 
 async function main() {
-  await jest.runCLI()
+  await execa("jest --help")
 }
 
 main()
