@@ -19,6 +19,6 @@
   },
   "scripts": {
     "build": "rimraf build && NODE_ENV=production babel --out-dir build src",
-    "build-push": "npm run build && git add build && git commit --sign --message 'Transpiled src to build' && git push"
+    "build-push": "npm run build && git add build && git commit --sign --message 'Rebuilt src/' && git push"
   }
 }
