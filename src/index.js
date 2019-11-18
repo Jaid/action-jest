@@ -1,1 +1,7 @@
-console.log("Test")
+import jest from "jest"
+
+async function main() {
+  await jest.runCLI()
+}
+
+main()
