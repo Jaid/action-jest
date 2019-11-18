@@ -1,7 +1,7 @@
 import execa from "execa"
 
 async function main() {
-  await execa("jest --help")
+  await execa("npx jest --help")
 }
 
 main()
