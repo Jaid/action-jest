@@ -16,6 +16,9 @@ async function main() {
     console.log("Logging RAM usage in Jest tests")
   }
   const failOnOpenHandles = getInput("failOnOpenHandles")
+  if (logHeapUsage) {
+    console.log("Open handles detection is turned on")
+  }
   const statsFile = path.join(jestReportDirectory, "stats.json")
   const jestArgs = [
     "--ci",
