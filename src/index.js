@@ -27,7 +27,7 @@ async function main() {
     "--coverageReporters",
     "json-summary",
     "--collectCoverageFrom",
-    "=src/**",
+    "src/**",
     "--coverageDirectory",
     path.join(jestReportDirectory, "coverage"),
   ] |> filterNil
