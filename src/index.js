@@ -69,7 +69,6 @@ async function main() {
     setFailed(`${zahl(stats.numFailedTests, "test")} did fail`)
     return
   }
-  console.warn(stats)
 }
 
 main()
