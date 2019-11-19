@@ -4,10 +4,11 @@ import filterNil from "filter-nil"
 import fsp from "@absolunet/fsp"
 import {getInput} from "@actions/core"
 import {exec} from "@actions/exec"
-import {which} from "@actions/io"
+import {which, mkdirP} from "@actions/io"
 
 async function main() {
   const jestReportDirectory = getInput("jestReportDirectory", {required: true})
+  await mkdirP(jestReportDirectory)
   const logHeapUsage = getInput("logHeapUsage", {required: true})
   if (logHeapUsage) {
     console.log("Logging RAM usage in Jest tests")
