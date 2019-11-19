@@ -1,7 +1,9 @@
-import exec from "@actions/exec"
+import {exec} from "@actions/exec"
+import {which} from "@actions/io"
 
 async function main() {
-  await exec.exec("npx", "jest", "--help")
+  const npxPath = await which("npx", true)
+  await exec.exec(npxPath, "jest", "--help")
 }
 
 main()
