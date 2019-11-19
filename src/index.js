@@ -49,7 +49,7 @@ async function main() {
         statements: Number(getInput("requiredStatementsCoverage")),
       },
     }),
-    failOnOpenHandles ? "detectOpenHandles" : null,
+    failOnOpenHandles ? "--detectOpenHandles" : null,
   ] |> filterNil
   const jestDependencyFile = path.join("node_modules", "jest", "bin", "jest.js")
   const isJestInstalled = await fsp.pathExists(jestDependencyFile)
