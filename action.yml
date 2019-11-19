@@ -33,3 +33,6 @@ inputs:
 runs:
   using: node12
   main: build/index.js
+branding:
+  icon: play-circle
+  color: green
