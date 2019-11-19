@@ -15,14 +15,17 @@ async function main() {
   const jestArgs = [
     "--ci",
     "--passWithNoTests",
-    "--coverage",
     "--json",
     "--outputFile",
     statsFile,
     logHeapUsage ? "--logHeapUsage" : null,
     "--runInBand",
     "--collectCoverageFrom",
-    "src",
+    "src/**",
+    "--coverageReporters",
+    "json",
+    "--coverageDirectory",
+    path.resolve("dist", "jest", "coverage"),
   ] |> filterNil
   const jestDependencyFile = path.resolve("node_modules", "jest", "bin", "jest.js")
   const isJestInstalled = await fsp.pathExists(jestDependencyFile)
