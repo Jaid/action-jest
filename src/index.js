@@ -1,5 +1,6 @@
 import path from "path"
 
+import hasContent from "has-content"
 import zahl from "zahl"
 import filterNil from "filter-nil"
 import fsp from "@absolunet/fsp"
@@ -8,12 +9,13 @@ import {exec} from "@actions/exec"
 import {which, mkdirP} from "@actions/io"
 
 async function main() {
-  const jestReportDirectory = getInput("jestReportDirectory", {required: true})
+  const jestReportDirectory = getInput("jestReportDirectory")
   await mkdirP(jestReportDirectory)
-  const logHeapUsage = getInput("logHeapUsage", {required: true})
+  const logHeapUsage = getInput("logHeapUsage")
   if (logHeapUsage) {
     console.log("Logging RAM usage in Jest tests")
   }
+  const failOnOpenHandles = getInput("failOnOpenHandles")
   const statsFile = path.join(jestReportDirectory, "stats.json")
   const jestArgs = [
     "--ci",
@@ -38,12 +40,13 @@ async function main() {
     "--coverageThreshold",
     JSON.stringify({
       global: {
-        lines: Number(getInput("requiredLinesCoverage", {required: true})),
-        functions: Number(getInput("requiredFunctionsCoverage", {required: true})),
-        branches: Number(getInput("requiredBranchesCoverage", {required: true})),
-        statements: Number(getInput("requiredStatementsCoverage", {required: true})),
+        lines: Number(getInput("requiredLinesCoverage")),
+        functions: Number(getInput("requiredFunctionsCoverage")),
+        branches: Number(getInput("requiredBranchesCoverage")),
+        statements: Number(getInput("requiredStatementsCoverage")),
       },
     }),
+    failOnOpenHandles ? "detectOpenHandles" : null,
   ] |> filterNil
   const jestDependencyFile = path.join("node_modules", "jest", "bin", "jest.js")
   const isJestInstalled = await fsp.pathExists(jestDependencyFile)
@@ -67,6 +70,10 @@ async function main() {
   const stats = await fsp.readJson(statsFile)
   if (stats.numFailedTests) {
     setFailed(`${zahl(stats.numFailedTests, "test")} did fail`)
+    return
+  }
+  if (failOnOpenHandles && hasContent(stats.openHandles)) {
+    setFailed(`Jest detected ${zahl(stats.openHandles.length, "open handle")}`)
     return
   }
 }
