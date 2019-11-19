@@ -5,7 +5,7 @@ async function main() {
   const npxPath = await which("npx", true)
   console.log(`Npx path: ${npxPath}`)
   console.log(`cwd: ${require("fs").readdirSync(require("path").resolve("")).join(" ")}`)
-  await exec(npxPath, ["jest", "--help"])
+  await exec(npxPath, ["jest"])
 }
 
 main()
