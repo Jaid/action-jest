@@ -9,7 +9,7 @@ import {which} from "@actions/io"
 async function main() {
   const logHeapUsage = getInput("logHeapUsage", {required: true})
   if (logHeapUsage) {
-    console.log("Logging heap usage in Jest tests")
+    console.log("Logging RAM usage in Jest tests")
   }
   const statsFile = path.resolve("dist", "jest", "stats.json")
   const jestArgs = [
@@ -21,6 +21,8 @@ async function main() {
     statsFile,
     logHeapUsage ? "--logHeapUsage" : null,
     "--runInBand",
+    "--collectCoverageFrom",
+    "src",
   ] |> filterNil
   const jestDependencyFile = path.resolve("node_modules", "jest", "bin", "jest.js")
   const isJestInstalled = await fsp.pathExists(jestDependencyFile)
