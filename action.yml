@@ -1,5 +1,6 @@
 name: Test Node project with Jest
 description: My action that gets executed on every commit in my Node package repositories
+author: Jaid
 runs:
   using: node12
   main: build/index.js
