@@ -11,6 +11,7 @@ async function main() {
     "--color=false",
     "--passWithNoTests",
     "--coverage",
+    "--json",
     `--outputFile="${statsFile}"`,
   ]
   const jestDependencyFile = path.resolve("node_modules", "jest", "bin", "jest.js")
