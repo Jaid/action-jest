@@ -11,7 +11,7 @@ async function main() {
   if (logHeapUsage) {
     console.log("Logging RAM usage in Jest tests")
   }
-  const statsFile = path.resolve("dist", "jest", "stats.json")
+  const statsFile = path.join("dist", "jest", "stats.json")
   const jestArgs = [
     "--ci",
     "--passWithNoTests",
@@ -25,9 +25,9 @@ async function main() {
     "--coverageReporters",
     "json",
     "--coverageDirectory",
-    path.resolve("dist", "jest", "coverage"),
+    path.join("dist", "jest", "coverage"),
   ] |> filterNil
-  const jestDependencyFile = path.resolve("node_modules", "jest", "bin", "jest.js")
+  const jestDependencyFile = path.join("node_modules", "jest", "bin", "jest.js")
   const isJestInstalled = await fsp.pathExists(jestDependencyFile)
   if (isJestInstalled) {
     const nodeArgs = [
