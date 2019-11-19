@@ -22,7 +22,8 @@ async function main() {
   const statsFile = path.join(jestReportDirectory, "stats.json")
   const jestArgs = [
     "--ci",
-    "--color=true",
+    "--color",
+    true,
     "--passWithNoTests",
     "--json",
     "--outputFile",
