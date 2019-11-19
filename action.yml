@@ -10,6 +10,10 @@ inputs:
     default: true
     required: true
     description: Enables Jest's logHeapUsage feature
+  jestReportDirectory:
+    default: dist/jest
+    required: true
+    description: Directory where stats.json and coverage report is output in
 runs:
   using: node12
   main: build/index.js

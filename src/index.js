@@ -7,11 +7,12 @@ import {exec} from "@actions/exec"
 import {which} from "@actions/io"
 
 async function main() {
+  const jestReportDirectory = getInput("jestReportDirectory", {required: true})
   const logHeapUsage = getInput("logHeapUsage", {required: true})
   if (logHeapUsage) {
     console.log("Logging RAM usage in Jest tests")
   }
-  const statsFile = path.join("dist", "jest", "stats.json")
+  const statsFile = path.join(jestReportDirectory, "stats.json")
   const jestArgs = [
     "--ci",
     "--passWithNoTests",
@@ -25,7 +26,7 @@ async function main() {
     "--coverageReporters",
     "json",
     "--coverageDirectory",
-    path.join("dist", "jest", "coverage"),
+    path.join(jestReportDirectory, "coverage"),
   ] |> filterNil
   const jestDependencyFile = path.join("node_modules", "jest", "bin", "jest.js")
   const isJestInstalled = await fsp.pathExists(jestDependencyFile)
