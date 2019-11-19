@@ -47,17 +47,22 @@ async function main() {
   ] |> filterNil
   const jestDependencyFile = path.join("node_modules", "jest", "bin", "jest.js")
   const isJestInstalled = await fsp.pathExists(jestDependencyFile)
+  let exitCode
   if (isJestInstalled) {
     const nodeArgs = [
       logHeapUsage ? "--expose-gc" : null,
       jestDependencyFile,
       ...jestArgs,
     ] |> filterNil
-    await exec("node", nodeArgs)
+    exitCode = await exec("node", nodeArgs)
   } else {
     const npxPath = await which("npx", true)
     console.warn("Jest not found in %s, using %s instead to install and run it", jestDependencyFile, npxPath)
-    await exec(npxPath, ["jest", ...jestArgs])
+    exitCode = await exec(npxPath, ["jest", ...jestArgs])
+  }
+  if (exitCode !== 0) {
+    setFailed(`Jest CLI returned exit code ${exitCode}`)
+    return
   }
   const stats = await fsp.readJson(statsFile)
   if (stats.numFailedTests) {
