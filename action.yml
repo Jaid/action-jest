@@ -2,18 +2,30 @@ name: Test Node project with Jest
 description: My action that gets executed on every commit in my Node package repositories
 author: Jaid
 inputs:
-  coverageNeeded:
-    default: 50
-    description: The percentage of test coverage needed (action will fail if coverage turns out to be lower than this)
-    required: true
   logHeapUsage:
     default: true
-    required: true
     description: Enables Jest's logHeapUsage feature
+    required: true
   jestReportDirectory:
     default: dist/jest
-    required: true
     description: Directory where stats.json and coverage report is output in
+    required: true
+  requiredLinesCoverage:
+    default: 50
+    description: The percentage of covered lines needed (action will fail if coverage turns out to be lower than this)
+    required: true
+  requiredFunctionsCoverage:
+    default: 50
+    description: The percentage of covered functions needed (action will fail if coverage turns out to be lower than this)
+    required: true
+  requiredBranchesCoverage:
+    default: 50
+    description: The percentage of covered branches needed (action will fail if coverage turns out to be lower than this)
+    required: true
+  requiredStatementsCoverage:
+    default: 50
+    description: The percentage of covered statements needed (action will fail if coverage turns out to be lower than this)
+    required: true
 runs:
   using: node12
   main: build/index.js

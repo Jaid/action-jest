@@ -25,11 +25,20 @@ async function main() {
     "--runInBand",
     "--coverage",
     "--coverageReporters",
-    "json-summary",
+    "text,json-summary",
     "--collectCoverageFrom",
     "src/**",
     "--coverageDirectory",
     path.join(jestReportDirectory, "coverage"),
+    "--coverageThreshold",
+    JSON.stringify({
+      global: {
+        lines: getInput("requiredLinesCoverage", {required: true}),
+        functions: getInput("requiredFunctionsCoverage", {required: true}),
+        branches: getInput("requiredBranchesCoverage", {required: true}),
+        statements: getInput("requiredStatementsCoverage", {required: true}),
+      },
+    }),
   ] |> filterNil
   const jestDependencyFile = path.join("node_modules", "jest", "bin", "jest.js")
   const isJestInstalled = await fsp.pathExists(jestDependencyFile)
