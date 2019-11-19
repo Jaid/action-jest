@@ -1,6 +1,11 @@
 name: Test Node project with Jest
 description: My action that gets executed on every commit in my Node package repositories
 author: Jaid
+inputs:
+  coverageNeeded:
+    default: 50
+    description: The percentage of test coverage needed (action will fail if coverage turns out to be lower than this)
+    required: true
 runs:
   using: node12
   main: build/index.js
