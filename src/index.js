@@ -4,7 +4,7 @@ import {which} from "@actions/io"
 async function main() {
   const npxPath = await which("npx", true)
   console.log(`Npx path: ${npxPath}`)
-  console.log(`cwd: ${require("fs").readdirSync("").join(" ")}`)
+  console.log(`cwd: ${require("fs").readdirSync(require("path").resolve("")).join(" ")}`)
   await exec(npxPath, ["jest", "--help"])
 }
 
