@@ -9,8 +9,7 @@ async function main() {
   const jestArgs = [
     "--passWithNoTests",
     "--coverage",
-    "--outputFile",
-    statsFile,
+    `--outputFile=${statsFile}`,
   ]
   const jestDependencyFile = path.resolve("node_modules", "jest", "bin", "jest.js")
   const isJestInstalled = await fsp.pathExists(jestDependencyFile)
