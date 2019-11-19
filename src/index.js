@@ -19,12 +19,17 @@ async function main() {
     "--color=true",
     "--passWithNoTests",
     "--json",
-    `--outputFile=${statsFile}`,
+    "--outputFile",
+    statsFile,
     logHeapUsage ? "--logHeapUsage" : null,
     "--runInBand",
-    "--collectCoverageFrom=src/**",
-    "--coverageReporters=json",
-    `--coverageDirectory=${path.join(jestReportDirectory, "coverage")}`,
+    "--coverage",
+    "--coverageReporters",
+    "json-summary",
+    "--collectCoverageFrom",
+    "=src/**",
+    "--coverageDirectory",
+    path.join(jestReportDirectory, "coverage"),
   ] |> filterNil
   const jestDependencyFile = path.join("node_modules", "jest", "bin", "jest.js")
   const isJestInstalled = await fsp.pathExists(jestDependencyFile)
