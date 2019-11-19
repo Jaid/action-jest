@@ -6,6 +6,10 @@ inputs:
     default: 50
     description: The percentage of test coverage needed (action will fail if coverage turns out to be lower than this)
     required: true
+  logHeapUsage:
+    default: true
+    required: true
+    description: Enables Jest's logHeapUsage feature
 runs:
   using: node12
   main: build/index.js

@@ -9,6 +9,7 @@
     "@actions/exec": "^1.0.1",
     "@actions/io": "^1.0.1",
     "@babel/runtime": "^7.7.2",
+    "filter-nil": "^1.0.1",
     "jest": "^24.9.0"
   },
   "devDependencies": {
