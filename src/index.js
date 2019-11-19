@@ -7,7 +7,8 @@ import {which} from "@actions/io"
 async function main() {
   const statsFile = path.resolve("dist", "jest", "stats.json")
   const jestArgs = [
-    "color=false",
+    "--ci",
+    "--color=false",
     "--passWithNoTests",
     "--coverage",
     `--outputFile="${statsFile}"`,
