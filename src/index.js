@@ -8,6 +8,9 @@ import {which} from "@actions/io"
 
 async function main() {
   const logHeapUsage = getInput("logHeapUsage", {required: true})
+  if (logHeapUsage) {
+    console.log("Logging heap usage in Jest tests")
+  }
   const statsFile = path.resolve("dist", "jest", "stats.json")
   const jestArgs = [
     "--ci",
