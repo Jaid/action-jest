@@ -28,7 +28,7 @@ async function main() {
     0,
     "--coverage",
     "--coverageReporters",
-    "text",
+    "text-summary",
     "--coverageReporters",
     "json-summary",
     "--collectCoverageFrom",
@@ -38,10 +38,10 @@ async function main() {
     "--coverageThreshold",
     JSON.stringify({
       global: {
-        lines: getInput("requiredLinesCoverage", {required: true}),
-        functions: getInput("requiredFunctionsCoverage", {required: true}),
-        branches: getInput("requiredBranchesCoverage", {required: true}),
-        statements: getInput("requiredStatementsCoverage", {required: true}),
+        lines: Number(getInput("requiredLinesCoverage", {required: true})),
+        functions: Number(getInput("requiredFunctionsCoverage", {required: true})),
+        branches: Number(getInput("requiredBranchesCoverage", {required: true})),
+        statements: Number(getInput("requiredStatementsCoverage", {required: true})),
       },
     }),
   ] |> filterNil
