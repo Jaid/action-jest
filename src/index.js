@@ -1,8 +1,9 @@
 import path from "path"
 
+import zahl from "zahl"
 import filterNil from "filter-nil"
 import fsp from "@absolunet/fsp"
-import {getInput} from "@actions/core"
+import {getInput, setFailed} from "@actions/core"
 import {exec} from "@actions/exec"
 import {which, mkdirP} from "@actions/io"
 
@@ -23,6 +24,8 @@ async function main() {
     statsFile,
     logHeapUsage ? "--logHeapUsage" : null,
     "--runInBand",
+    "--testFailureExitCode",
+    0,
     "--coverage",
     "--coverageReporters",
     "text",
@@ -57,6 +60,10 @@ async function main() {
     await exec(npxPath, ["jest", ...jestArgs])
   }
   const stats = await fsp.readJson(statsFile)
+  if (stats.numFailedTests) {
+    setFailed(`${zahl(stats.numFailedTests, "test")} did fail`)
+    return
+  }
   console.warn(stats)
 }
 
