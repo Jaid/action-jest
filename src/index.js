@@ -7,9 +7,10 @@ import {which} from "@actions/io"
 async function main() {
   const statsFile = path.resolve("dist", "jest", "stats.json")
   const jestArgs = [
+    "color=false",
     "--passWithNoTests",
     "--coverage",
-    `--outputFile=${statsFile}`,
+    `--outputFile="${statsFile}"`,
   ]
   const jestDependencyFile = path.resolve("node_modules", "jest", "bin", "jest.js")
   const isJestInstalled = await fsp.pathExists(jestDependencyFile)
