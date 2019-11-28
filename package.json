@@ -10,6 +10,7 @@
     "@actions/io": "^1.0.1",
     "@babel/runtime": "^7.7.4",
     "filter-nil": "^1.0.1",
+    "globby": "^10.0.1",
     "has-content": "^1.1.0",
     "zahl": "^2.0.1"
   },

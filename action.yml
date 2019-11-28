@@ -30,6 +30,8 @@ inputs:
     default: true
     description: If true, tells Jest to detect open handles (slightly decreases performance) and fails action if open handles were found
     required: true
+  npmPrepareScript:
+    description: Name of an npm script entry (for example "build" to run package.json[build]) that will be executed before publishing
 runs:
   using: node12
   main: build/index.js

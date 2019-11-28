@@ -1,14 +1,36 @@
 import path from "path"
 
-import hasContent from "has-content"
+import hasContent, {isEmpty} from "has-content"
 import zahl from "zahl"
 import filterNil from "filter-nil"
 import fsp from "@absolunet/fsp"
 import {getInput, setFailed} from "@actions/core"
 import {exec} from "@actions/exec"
 import {which, mkdirP} from "@actions/io"
+import globby from "globby"
 
 async function main() {
+  const npmPrepareScript = getInput("npmPrepareScript")
+  if (npmPrepareScript) {
+    /**
+     * @type {import("@actions/exec").ExecOptions}
+     */
+    const execOptions = {}
+    const githubToken = getInput("githubToken")
+    if (githubToken) {
+      execOptions.env = {
+        ...process.env,
+        GITHUB_TOKEN: githubToken,
+      }
+    }
+    await exec("npm", ["run", npmPrepareScript], execOptions)
+  }
+  const possibleEntryFiles = await globby("dist/package/production/*.js")
+  if (isEmpty(possibleEntryFiles)) {
+    console.log(`No entry point files found in ${path.resolve("dist/package/production")}`)
+    return
+  }
+  const pickedEntry = possibleEntryFiles[0]
   const jestReportDirectory = getInput("jestReportDirectory")
   await mkdirP(jestReportDirectory)
   const logHeapUsage = getInput("logHeapUsage")
@@ -55,17 +77,24 @@ async function main() {
   const jestDependencyFile = path.join("node_modules", "jest", "bin", "jest.js")
   const isJestInstalled = await fsp.pathExists(jestDependencyFile)
   let exitCode
+  const execArgs = {
+    env: {
+      ...process.env,
+      NODE_ENV: "production",
+      MAIN: pickedEntry,
+    },
+  }
   if (isJestInstalled) {
     const nodeArgs = [
       logHeapUsage ? "--expose-gc" : null,
       jestDependencyFile,
       ...jestArgs,
     ] |> filterNil
-    exitCode = await exec("node", nodeArgs)
+    exitCode = await exec("node", nodeArgs, execArgs)
   } else {
     const npxPath = await which("npx", true)
     console.warn("Jest not found in %s, using %s instead to install and run it", jestDependencyFile, npxPath)
-    exitCode = await exec(npxPath, ["jest", ...jestArgs])
+    exitCode = await exec(npxPath, ["jest", ...jestArgs], execArgs)
   }
   if (exitCode !== 0) {
     setFailed(`Jest CLI returned exit code ${exitCode}`)
