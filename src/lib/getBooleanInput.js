@@ -1,0 +1,1 @@
+const prepareActionJest = getBooleanInput("prepareActionJest", {required: true})

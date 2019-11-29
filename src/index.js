@@ -8,15 +8,27 @@ import {getInput, setFailed} from "@actions/core"
 import {exec} from "@actions/exec"
 import {which, mkdirP} from "@actions/io"
 import globby from "globby"
+import getBooleanInput from "lib/getBooleanInput"
 
 async function main() {
+  const githubToken = getInput("githubToken")
+  const prepareActionJest = getBooleanInput("prepareActionJest", {required: true})
+  if (prepareActionJest) {
+    const execOptions = {}
+    if (githubToken) {
+      execOptions.env = {
+        ...process.env,
+        GITHUB_TOKEN: githubToken,
+      }
+    }
+    await exec("npm", ["run", "prepareActionJest", "--if-present"], execOptions)
+  }
   const npmPrepareScript = getInput("npmPrepareScript")
   if (npmPrepareScript) {
     /**
      * @type {import("@actions/exec").ExecOptions}
      */
     const execOptions = {}
-    const githubToken = getInput("githubToken")
     if (githubToken) {
       execOptions.env = {
         ...process.env,

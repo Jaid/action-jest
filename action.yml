@@ -32,6 +32,10 @@ inputs:
     required: true
   npmPrepareScript:
     description: Name of an npm script entry (for example "build" to run package.json[build]) that will be executed before publishing
+  prepareActionJest:
+    description: If true, and if script package.json[prepareActionJest] is given, this script will be run with npm before invoking Jest
+    default: true
+    required: true
 runs:
   using: node12
   main: build/index.js
