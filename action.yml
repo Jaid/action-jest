@@ -36,6 +36,8 @@ inputs:
     description: If true, and if script package.json[prepareActionJest] is given, this script will be run with npm before invoking Jest
     default: true
     required: true
+  githubToken:
+    description: GitHub token, can be forwarded from secrets.GITHUB_TOKEN
 runs:
   using: node12
   main: build/index.js
