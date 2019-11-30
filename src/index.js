@@ -8,7 +8,7 @@ import {getInput, setFailed} from "@actions/core"
 import {exec} from "@actions/exec"
 import {which, mkdirP} from "@actions/io"
 import globby from "globby"
-import getBooleanInput from "lib/getBooleanInput"
+import getBooleanInput from "get-boolean-action-input"
 
 async function main() {
   const githubToken = getInput("githubToken")
