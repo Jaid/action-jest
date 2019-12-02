@@ -28,5 +28,6 @@
     "build": "rimraf build && NODE_ENV=production webpack",
     "build-push": "npm run build && git add build && git commit --sign --message 'Rebuilt src/' && git push",
     "prepareActionJest": "npm run build:prod"
-  }
+  },
+  "description": "GitHub Action for running Jest (unit tests and coverage requirements) on my Node projects."
 }
