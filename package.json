@@ -25,7 +25,7 @@
     "webpack-config-jaid": "^11.8.0"
   },
   "scripts": {
-    "build": "rimraf build && NODE_ENV=production webpack",
+    "build": "rm -rf build && NODE_ENV=production webpack",
     "build-push": "npm run build && git add build && git commit --sign --message 'Rebuilt src/' && git push",
     "prepareActionJest": "npm run build:prod"
   },
