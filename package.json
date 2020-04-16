@@ -35,5 +35,7 @@
     "type": "git",
     "url": "https://github.com/jaid/action-jest"
   },
-  "name": "action-jest"
+  "name": "action-jest",
+  "homepage": "",
+  "keywords": []
 }
