@@ -39,5 +39,15 @@
   },
   "name": "action-jest",
   "homepage": "",
-  "keywords": []
+  "keywords": [
+    "action",
+    "action-jest",
+    "actions",
+    "github-action",
+    "github-actions",
+    "jest",
+    "test",
+    "testing",
+    "workflow"
+  ]
 }
