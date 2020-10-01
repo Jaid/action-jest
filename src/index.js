@@ -1,14 +1,13 @@
-import path from "path"
-
-import hasContent, {isEmpty} from "has-content"
-import zahl from "zahl"
-import filterNil from "filter-nil"
 import fsp from "@absolunet/fsp"
 import {getInput, setFailed} from "@actions/core"
 import {exec} from "@actions/exec"
-import {which, mkdirP} from "@actions/io"
-import globby from "globby"
+import {mkdirP, which} from "@actions/io"
+import filterNil from "filter-nil"
 import getBooleanInput from "get-boolean-action-input"
+import globby from "globby"
+import hasContent, {isEmpty} from "has-content"
+import path from "path"
+import zahl from "zahl"
 
 async function main() {
   const githubToken = getInput("githubToken")
