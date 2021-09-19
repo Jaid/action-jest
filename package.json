@@ -49,5 +49,6 @@
     "test",
     "testing",
     "workflow"
-  ]
+  ],
+  "type": "module"
 }
