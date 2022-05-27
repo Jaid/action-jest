@@ -5,7 +5,7 @@ import {mkdirP, which} from "@actions/io"
 import filterNil from "filter-nil"
 import getBooleanInput from "./lib/esm/get-boolean-action-input.js"
 import globby from "globby"
-import hasContent, {isEmpty} from "has-content"
+import hasContent, {isEmpty} from "./lib/esm/has-content.js"
 import path from "path"
 import zahl from "zahl"
 
