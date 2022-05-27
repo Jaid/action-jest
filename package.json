@@ -15,7 +15,7 @@
     "zahl": "^2.0.6"
   },
   "devDependencies": {
-    "babel-preset-jaid": "^15.0.4",
+    "babel-preset-jaid": "^16.0.0",
     "browserslist-config-jaid-node": "^3.0.0",
     "eslint": "^8.16.0",
     "eslint-config-jaid": "^1.59.1",
