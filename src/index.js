@@ -1,12 +1,14 @@
+import path from "node:path"
+
 import fsp from "@absolunet/fsp"
 import {getInput, setFailed} from "@actions/core"
 import {exec} from "@actions/exec"
 import {mkdirP, which} from "@actions/io"
 import filterNil from "filter-nil"
-import getBooleanInput from "./lib/esm/get-boolean-action-input.js"
 import globby from "globby"
+
+import getBooleanInput from "./lib/esm/get-boolean-action-input.js"
 import hasContent, {isEmpty} from "./lib/esm/has-content.js"
-import path from "path"
 import zahl from "./lib/esm/zahl.js"
 
 async function main() {
