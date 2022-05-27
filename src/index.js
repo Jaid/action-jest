@@ -55,7 +55,7 @@ async function main() {
     console.log("Open handles detection is turned on")
   }
   const statsFile = path.join(jestReportDirectory, "stats.json")
-  const jestArgs = [
+  const jestArgs = filterNil([
     "--ci",
     "--color",
     true,
@@ -86,7 +86,7 @@ async function main() {
       },
     }),
     failOnOpenHandles ? "--detectOpenHandles" : null,
-  ] |> filterNil
+  ])
   const jestDependencyFile = path.join("node_modules", "jest", "bin", "jest.js")
   const isJestInstalled = await fsp.pathExists(jestDependencyFile)
   let exitCode
@@ -98,11 +98,11 @@ async function main() {
     },
   }
   if (isJestInstalled) {
-    const nodeArgs = [
+    const nodeArgs = filterNil([
       logHeapUsage ? "--expose-gc" : null,
       jestDependencyFile,
       ...jestArgs,
-    ] |> filterNil
+    ])
     exitCode = await exec("node", nodeArgs, execArgs)
   } else {
     const npxPath = await which("npx", true)
